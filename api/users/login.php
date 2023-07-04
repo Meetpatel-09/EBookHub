@@ -13,9 +13,12 @@ $db = $database->getConnection();
 
 $item = new User($db);
 
-if (isset($_POST['email'])) {
-     $item->email = $_POST['email'];
-     $password = $_POST['password'];
+$json = file_get_contents('php://input');
+$data = json_decode($json);
+
+if (isset($data->email)) {
+     $item->email = $data->email;
+     $password = $data->password;
 } else {
      http_response_code(404);
      echo json_encode(['status' => 404, 'message' => "Please Send Email and Password"]);
@@ -35,6 +38,8 @@ if ($item->name != null) {
                "id" => $item->id,
                "name" => $item->name,
                "email" => $item->email,
+               "mobile" => $item->mobile,
+               "address" => $item->address,
                "image" => $item->image,
                "password" => $item->password,
           );

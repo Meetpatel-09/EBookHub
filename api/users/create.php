@@ -19,6 +19,8 @@ $data = json_decode($json);
 $item->name = $data->name;
 $item->email = $data->email;
 $item->image = $data->image;
+$item->mobile = $data->mobile;
+$item->address = $data->address;
 $item->password = $data->password;
 
 if ($item->createUser()) {

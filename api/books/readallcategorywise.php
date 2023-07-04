@@ -12,7 +12,10 @@ $database = new Database();
 $db = $database->getConnection();
 
 $item = new Books($db);
-$records = $item->getBooks();
+
+$item->category = isset($_GET['category']) ? $_GET['category'] : die();
+
+$records = $item->getBooksCategoryWise();
 $itemCount = $records->num_rows;
 
 if ($itemCount > 0) {
@@ -26,5 +29,5 @@ if ($itemCount > 0) {
      }
      echo json_encode($arr);
 } else {
-     echo json_encode(['status' => 502, 'message' => "Something went wrong."]);
+     echo json_encode(['status' => 404, 'message' => "Data Not Found"]);
 }

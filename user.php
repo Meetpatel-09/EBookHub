@@ -12,6 +12,8 @@ class User
      public $name;
      public $email;
      public $image;
+     public $address;
+     public $mobile;
      public $password;
 
      public $result;
@@ -36,9 +38,11 @@ class User
           // sanitize
           $this->name = htmlspecialchars(strip_tags($this->name));
           $this->email = htmlspecialchars(strip_tags($this->email));
+          $this->mobile = htmlspecialchars(strip_tags($this->mobile));
+          $this->address = htmlspecialchars(strip_tags($this->address));
           $this->image = htmlspecialchars(strip_tags($this->image));
           $this->password = htmlspecialchars(strip_tags($this->password));
-          $sqlQuery = "INSERT INTO $this->db_table(`name`, `email`, `image`, `password`) VALUES ('" . $this->name . "','" . $this->email . "','" . $this->image . "','" . $this->password . "');";
+          $sqlQuery = "INSERT INTO $this->db_table(`name`, `email`, `mobile`, `address`, `image`, `password`) VALUES ('" . $this->name . "','" . $this->email . "','" . $this->mobile . "','" . $this->address . "','" . $this->image . "','" . $this->password . "');";
           $this->db->query($sqlQuery);
           if ($this->db->affected_rows > 0) {
                return true;
@@ -52,9 +56,11 @@ class User
           $this->id = htmlspecialchars(strip_tags($this->id));
           $this->name = htmlspecialchars(strip_tags($this->name));
           $this->email = htmlspecialchars(strip_tags($this->email));
+          $this->mobile = htmlspecialchars(strip_tags($this->mobile));
+          $this->address = htmlspecialchars(strip_tags($this->address));
           $this->image = htmlspecialchars(strip_tags($this->image));
 
-          $sqlQuery = "UPDATE " . $this->db_table . " SET name = '" . $this->name . "', email = '" . $this->email . "', image = '" . $this->image . "' WHERE id = " . $this->id;
+          $sqlQuery = "UPDATE " . $this->db_table . " SET name = '" . $this->name . "', email = '" . $this->email . "', mobile = '" . $this->mobile . "', address = '" . $this->address . "', image = '" . $this->image . "' WHERE id = " . $this->id;
 
           $this->db->query($sqlQuery);
           if ($this->db->affected_rows > 0) {
@@ -69,11 +75,15 @@ class User
           $sqlQuery = "SELECT * FROM " . $this->db_table . " WHERE id = " . $this->id;
           $record = $this->db->query($sqlQuery);
           $dataRow = $record->fetch_assoc();
-          $this->id = $dataRow['id'];
-          $this->name = $dataRow['name'];
-          $this->email = $dataRow['email'];
-          $this->image = $dataRow['image'];
-          $this->password = $dataRow['password'];
+          if ($this->db->affected_rows > 0) {
+               $this->id = $dataRow['id'];
+               $this->name = $dataRow['name'];
+               $this->email = $dataRow['email'];
+               $this->mobile = $dataRow['mobile'];
+               $this->address = $dataRow['address'];
+               $this->image = $dataRow['image'];
+               $this->password = $dataRow['password'];
+          }
      }
 
      // user Login
@@ -86,6 +96,8 @@ class User
                $this->id = $dataRow['id'];
                $this->name = $dataRow['name'];
                $this->email = $dataRow['email'];
+               $this->mobile = $dataRow['mobile'];
+               $this->address = $dataRow['address'];
                $this->image = $dataRow['image'];
                $this->password = $dataRow['password'];
           }

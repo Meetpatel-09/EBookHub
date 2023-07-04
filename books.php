@@ -31,7 +31,15 @@ class Books
      // GET ALL
      public function getBooks()
      {
-          $sqlQuery = "SELECT * FROM " . $this->db_table . "";
+          $sqlQuery = "SELECT books.id AS book_id, books.title, books.author, books.category, books.ISBN, books.language, books.publicationyear, books.pages, books.price, books.bookimages, books.userid, users.name AS user_name FROM books INNER JOIN users ON books.userid = users.id ORDER BY books.id";
+          $this->result = $this->db->query($sqlQuery);
+          return $this->result;
+     }
+
+     // GET ALL Category Wise
+     public function getBooksCategoryWise()
+     {
+          $sqlQuery = "SELECT books.id AS book_id, books.title, books.author, books.category, books.ISBN, books.language, books.publicationyear, books.pages, books.price, books.bookimages, books.userid, users.name AS user_name FROM books INNER JOIN users ON books.userid = users.id WHERE books.category = '" . $this->category . "' ORDER BY books.id";
           $this->result = $this->db->query($sqlQuery);
           return $this->result;
      }
@@ -100,7 +108,6 @@ class Books
           $this->bookimages = $dataRow['bookimages'];
           $this->userid = $dataRow['userid'];
           $this->category = $dataRow['category'];
-          
      }
 
      // DELETE

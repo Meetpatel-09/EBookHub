@@ -17,19 +17,21 @@ $item->id = isset($_GET['id']) ? $_GET['id'] : die();
 
 $item->getSingleUsers();
 
-if($item->name != null){
+if ($item->name != null) {
 
      // create array
      $users_arr = array(
           "id" => $item->id,
           "name" => $item->name,
           "email" => $item->email,
+          "mobile" => $item->mobile,
+          "address" => $item->address,
           "image" => $item->image,
           "password" => $item->password,
      );
      http_response_code(200);
-     echo json_encode(['status' => 200, 'message' => "Found successfully.", "data" => $users_arr]);
+     echo json_encode(['status' => 200, 'message' => "Found successfully.", "user_details" => $users_arr]);
 } else {
-          http_response_code(404);
+     http_response_code(404);
      echo json_encode(['status' => 404, 'message' => "Something went wrong."]);
 }
